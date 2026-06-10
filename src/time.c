@@ -10,12 +10,18 @@ typedef struct
     double tempo_segundos;
 } Metricas;
 
+void zerarMetricas(Metricas *m)
+{
+    m->comparacoes = 0;
+    m->trocas = 0;
+    m->tempo_segundos = 0.0;
+}
+
 // ---- ESPAÇO PARA AS IMPLEMENTAÇÕES DOS ALUNOS ----
 
 void insertionSort(int *vetor, int n, Metricas *m)
 {
-    m->comparacoes = 0;
-    m->trocas = 0;
+    zerarMetricas(m);
 
     // EXEMPLO DE IMPLEMENTAÇÃO E INSTRUMENTAÇÃO:
     for (int i = 1; i < n; i++)
