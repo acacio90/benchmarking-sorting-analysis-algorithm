@@ -9,8 +9,7 @@ typedef struct
 } Metricas;
 
 void zerarMetricas(Metricas *m);
-
 void insertionSort(int *vetor, int n, Metricas *m);
 void selectionSort(int *vetor, int n, Metricas *m);
-
+void bubbleSortMelhorado(int *vetor, int n, Metricas *m);
 #endif

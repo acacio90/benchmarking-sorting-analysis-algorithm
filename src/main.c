@@ -39,13 +39,13 @@ int main()
     Metricas m;
 
     clock_gettime(CLOCK_MONOTONIC, &inicio);
-    selectionSort(vetor, N, &m);
+    bubbleSortMelhorado(vetor, N, &m);
     clock_gettime(CLOCK_MONOTONIC, &fim);
 
     m.tempo_segundos = (fim.tv_sec - inicio.tv_sec) +
                        (fim.tv_nsec - inicio.tv_nsec) / 1e9;
 
-    printf("Selection Sort\n");
+    printf("Bubble Sort Melhorado\n");
     printf("Resultados:\nTempo: %f s\nComparacoes: %llu\nTrocas: %llu\n",
            m.tempo_segundos, m.comparacoes, m.trocas);
 

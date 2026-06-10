@@ -34,7 +34,39 @@ void selectionSort(int *vetor, int n, Metricas *m)
         }
     }
 }
+void bubbleSortMelhorado(int *vetor, int n, Metricas *m)
+{
+    zerarMetricas(m);
 
+    int limite = n - 1;
+
+    while (limite > 0)
+    {
+        int ultimaTroca = 0;
+
+        for (int i = 0; i < limite; i++)
+        {
+            m->comparacoes++;
+
+            if (vetor[i] > vetor[i + 1])
+            {
+                int temp = vetor[i];
+                vetor[i] = vetor[i + 1];
+                vetor[i + 1] = temp;
+
+                m->trocas++;
+                ultimaTroca = i;
+            }
+        }
+
+        if (ultimaTroca == 0)
+        {
+            break;
+        }
+
+        limite = ultimaTroca;
+    }
+}
 void insertionSort(int *vetor, int n, Metricas *m)
 {
     zerarMetricas(m);
