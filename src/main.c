@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "heap.h"
 #include "ordenacao.h"
 
 // ---- FUNÇÕES AUXILIARES DE GERAÇÃO DE DADOS ----
@@ -32,23 +31,6 @@ void copiarVetor(int *destino, const int *origem, int n)
     }
 }
 
-void heapSortComTad(int *vetor, int n)
-{
-    Heap *heap = heap_criar(n);
-
-    for (int i = 0; i < n; i++)
-    {
-        heap_inserir(heap, vetor[i]);
-    }
-
-    for (int i = n - 1; i >= 0; i--)
-    {
-        vetor[i] = heap_remover(heap);
-    }
-
-    heap_destruir(heap);
-}
-
 double calcularTempo(struct timespec inicio, struct timespec fim)
 {
     return (fim.tv_sec - inicio.tv_sec) +
@@ -62,16 +44,18 @@ int main()
     int *vetorInsertion = (int *)malloc(N * sizeof(int));
     int *vetorSelection = (int *)malloc(N * sizeof(int));
     int *vetorBubble = (int *)malloc(N * sizeof(int));
+    int *vetorShell = (int *)malloc(N * sizeof(int));
     int *vetorQuick = (int *)malloc(N * sizeof(int));
     int *vetorHeap = (int *)malloc(N * sizeof(int));
 
     if (vetorOriginal == NULL || vetorInsertion == NULL || vetorSelection == NULL ||
-        vetorBubble == NULL || vetorQuick == NULL || vetorHeap == NULL)
+        vetorBubble == NULL || vetorShell == NULL || vetorQuick == NULL || vetorHeap == NULL)
     {
         free(vetorOriginal);
         free(vetorInsertion);
         free(vetorSelection);
         free(vetorBubble);
+        free(vetorShell);
         free(vetorQuick);
         free(vetorHeap);
         return 1;
@@ -83,6 +67,7 @@ int main()
     copiarVetor(vetorInsertion, vetorOriginal, N);
     copiarVetor(vetorSelection, vetorOriginal, N);
     copiarVetor(vetorBubble, vetorOriginal, N);
+    copiarVetor(vetorShell, vetorOriginal, N);
     copiarVetor(vetorQuick, vetorOriginal, N);
     copiarVetor(vetorHeap, vetorOriginal, N);
 
@@ -90,6 +75,7 @@ int main()
     Metricas metricasInsertion;
     Metricas metricasSelection;
     Metricas metricasBubble;
+    Metricas metricasShell;
     Metricas metricasQuick;
     Metricas metricasHeap;
 
@@ -108,15 +94,19 @@ int main()
     clock_gettime(CLOCK_MONOTONIC, &fim);
     metricasBubble.tempo_segundos = calcularTempo(inicio, fim);
 
+    clock_gettime(CLOCK_MONOTONIC, &inicio);
+    shellSort(vetorShell, N, &metricasShell);
+    clock_gettime(CLOCK_MONOTONIC, &fim);
+    metricasShell.tempo_segundos = calcularTempo(inicio, fim);
+
     zerarMetricas(&metricasQuick);
     clock_gettime(CLOCK_MONOTONIC, &inicio);
     quickSort(vetorQuick, 0, N - 1, &metricasQuick);
     clock_gettime(CLOCK_MONOTONIC, &fim);
     metricasQuick.tempo_segundos = calcularTempo(inicio, fim);
 
-    zerarMetricas(&metricasHeap);
     clock_gettime(CLOCK_MONOTONIC, &inicio);
-    heapSortComTad(vetorHeap, N);
+    heapSort(vetorHeap, N, &metricasHeap);
     clock_gettime(CLOCK_MONOTONIC, &fim);
     metricasHeap.tempo_segundos = calcularTempo(inicio, fim);
 
@@ -132,17 +122,23 @@ int main()
     printf("Resultados:\nTempo: %f s\nComparacoes: %llu\nTrocas: %llu\n\n",
            metricasBubble.tempo_segundos, metricasBubble.comparacoes, metricasBubble.trocas);
 
+    printf("Shell Sort\n");
+    printf("Resultados:\nTempo: %f s\nComparacoes: %llu\nTrocas: %llu\n\n",
+           metricasShell.tempo_segundos, metricasShell.comparacoes, metricasShell.trocas);
+
     printf("Quick Sort\n");
     printf("Resultados:\nTempo: %f s\nComparacoes: %llu\nTrocas: %llu\n\n",
            metricasQuick.tempo_segundos, metricasQuick.comparacoes, metricasQuick.trocas);
 
-    printf("Heap Sort com TAD\n");
-    printf("Resultados:\nTempo: %f s\n", metricasHeap.tempo_segundos);
+    printf("Heap Sort\n");
+    printf("Resultados:\nTempo: %f s\nComparacoes: %llu\nTrocas: %llu\n",
+           metricasHeap.tempo_segundos, metricasHeap.comparacoes, metricasHeap.trocas);
 
     free(vetorOriginal);
     free(vetorInsertion);
     free(vetorSelection);
     free(vetorBubble);
+    free(vetorShell);
     free(vetorQuick);
     free(vetorHeap);
     return 0;

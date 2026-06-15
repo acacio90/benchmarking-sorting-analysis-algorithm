@@ -104,6 +104,38 @@ void insertionSort(int *vetor, int n, Metricas *m)
     }
 }
 
+void shellSort(int *vetor, int n, Metricas *m)
+{
+    zerarMetricas(m);
+
+    for (int gap = n / 2; gap > 0; gap /= 2)
+    {
+        for (int i = gap; i < n; i++)
+        {
+            int chave = vetor[i];
+            int j = i;
+
+            while (j >= gap)
+            {
+                m->comparacoes++;
+
+                if (vetor[j - gap] > chave)
+                {
+                    vetor[j] = vetor[j - gap];
+                    m->trocas++;
+                    j -= gap;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            vetor[j] = chave;
+        }
+    }
+}
+
 void quickSort(int *vetor, int inicio, int fim, Metricas *m)
 {
     if (inicio < fim)
@@ -135,5 +167,51 @@ void quickSort(int *vetor, int inicio, int fim, Metricas *m)
 
         quickSort(vetor, inicio, posicaoPivo - 1, m);
         quickSort(vetor, posicaoPivo + 1, fim, m);
+    }
+}
+
+static void descerHeap(int *vetor, int n, int i, Metricas *m)
+{
+    while (2 * i + 1 < n)
+    {
+        int esq = 2 * i + 1;
+        int dir = 2 * i + 2;
+        int maior = esq;
+
+        if (dir < n)
+        {
+            m->comparacoes++;
+
+            if (vetor[dir] > vetor[esq])
+            {
+                maior = dir;
+            }
+        }
+
+        m->comparacoes++;
+
+        if (vetor[i] >= vetor[maior])
+        {
+            return;
+        }
+
+        trocarElementos(&vetor[i], &vetor[maior], m);
+        i = maior;
+    }
+}
+
+void heapSort(int *vetor, int n, Metricas *m)
+{
+    zerarMetricas(m);
+
+    for (int i = n / 2 - 1; i >= 0; i--)
+    {
+        descerHeap(vetor, n, i, m);
+    }
+
+    for (int fim = n - 1; fim > 0; fim--)
+    {
+        trocarElementos(&vetor[0], &vetor[fim], m);
+        descerHeap(vetor, fim, 0, m);
     }
 }
