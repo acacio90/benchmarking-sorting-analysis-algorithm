@@ -34,7 +34,7 @@ benchmarking-sorting-analysis-algorithm/
 
 ## Descrição dos arquivos
 
-* `src/main.c`: arquivo principal do programa, responsável pela criação dos vetores, chamada dos algoritmos e exibição dos resultados.
+* `src/main.c`: arquivo principal do programa, responsável pela criação dos vetores, execução dos Problemas 1 e 2 e gravação dos resultados.
 * `src/ordenacao.c`: contém a implementação dos algoritmos de ordenação.
 * `src/ordenacao.h`: contém a estrutura de métricas e as declarações das funções de ordenação.
 * `data/`: pasta reservada para armazenar os resultados brutos dos experimentos em formato `.csv` ou `.txt`.
@@ -47,7 +47,7 @@ Para compilar o projeto, execute o comando abaixo na raiz do repositório:
 gcc src/main.c src/ordenacao.c -lm -o programa
 ```
 
-## Como executar
+## Como executar no Windows
 
 Após a compilação, execute o programa com:
 
@@ -55,18 +55,22 @@ Após a compilação, execute o programa com:
 .\programa.exe
 ```
 
-O programa gera automaticamente dois arquivos dentro da pasta `data`:
+## Como executar no WSL/Linux
 
-* `data/resultado.csv`: dados brutos em formato separado por ponto e vírgula.
-* `data/resultado_problema1.txt`: resultados do Problema 1 em formato textual.
-* `data/resultado_problema2.txt`: resultados do Problema 2 em formato textual.
-
-Para o Problema 2, como o Quick Sort clássico usa o último elemento como pivô e o vetor de entrada é ordenado, execute no WSL/Linux com a pilha ampliada:
+Como o Problema 2 executa o Quick Sort clássico com pivô no último elemento em um vetor já ordenado, aumente o limite da pilha antes de rodar:
 
 ```bash
 ulimit -s unlimited
 ./programa
 ```
+
+## Arquivos gerados
+
+O programa gera automaticamente os seguintes arquivos dentro da pasta `data`:
+
+* `data/resultado.csv`: dados brutos em formato separado por ponto e vírgula.
+* `data/resultado_problema1.txt`: resultados do Problema 1 em formato textual.
+* `data/resultado_problema2.txt`: resultados do Problema 2 em formato textual.
 
 ## Exemplo de saída
 
@@ -80,6 +84,7 @@ Problema;Cenario;Algoritmo;N;Tempo_s;Comparacoes;Trocas
 Exemplo dos arquivos `.txt` por problema:
 
 ```txt
+Problema: 1
 Cenario: Aleatorio
 Bubble Sort Melhorado
 Resultados:
@@ -90,7 +95,7 @@ Trocas: 225521470
 
 ## Situação atual do desenvolvimento
 
-O projeto está em fase de implementação dos algoritmos exigidos no trabalho. Até o momento, foram implementados e testados:
+O projeto está em fase de execução dos experimentos e organização dos resultados. Até o momento, foram implementados e testados:
 
 * Estrutura de métricas;
 * Separação dos algoritmos em arquivo próprio;
@@ -101,8 +106,13 @@ O projeto está em fase de implementação dos algoritmos exigidos no trabalho. 
 * Quick Sort instrumentado;
 * Heap Sort instrumentado.
 
+Experimentos já automatizados:
+
+* Problema 1: Insertion Sort, Selection Sort e Bubble Sort Melhorado nos cenários aleatório, ordenado e inverso com `N = 30000`.
+* Problema 2: Heap Sort e Quick Sort clássico em vetor ordenado com `N = 5000`, 10 execuções, tempo médio e desvio padrão.
+
 Próximas etapas:
 
-* Automatizar a execução dos algoritmos dos Problemas 2 e 3;
-* Gerar arquivo com os dados brutos dos testes do Problema 3;
+* Automatizar a execução dos algoritmos do Problema 3;
+* Gerar arquivo textual `data/resultado_problema3.txt`;
 * Criar o relatório final com tabelas, gráficos e análise dos resultados.
