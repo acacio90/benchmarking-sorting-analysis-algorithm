@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 
 #include "ordenacao.h"
 
-#define N 30000
+#define N_PROBLEMA1 30000
+#define N_PROBLEMA2 5000
+#define EXECUCOES_PROBLEMA2 10
 
 // ---- FUNÇÕES AUXILIARES DE GERAÇÃO DE DADOS ----
 void gerarVetorAleatorio(int *v, int n)
@@ -39,19 +42,21 @@ double calcularTempo(struct timespec inicio, struct timespec fim)
            (fim.tv_nsec - inicio.tv_nsec) / 1e9;
 }
 
-void salvarResultadoCsv(FILE *arquivo, const char *cenario, const char *algoritmo, Metricas m)
+void salvarResultadoCsv(FILE *arquivo, int problema, const char *cenario, const char *algoritmo, int n, Metricas m)
 {
-    fprintf(arquivo, "1;%s;%s;%d;%f;%llu;%llu\n",
+    fprintf(arquivo, "%d;%s;%s;%d;%f;%llu;%llu\n",
+            problema,
             cenario,
             algoritmo,
-            N,
+            n,
             m.tempo_segundos,
             m.comparacoes,
             m.trocas);
 }
 
-void salvarResultadoTxt(FILE *arquivo, const char *cenario, const char *algoritmo, Metricas m)
+void salvarResultadoTxt(FILE *arquivo, int problema, const char *cenario, const char *algoritmo, Metricas m)
 {
+    fprintf(arquivo, "Problema: %d\n", problema);
     fprintf(arquivo, "Cenario: %s\n", cenario);
     fprintf(arquivo, "%s\n", algoritmo);
     fprintf(arquivo, "Resultados:\n");
@@ -60,124 +65,225 @@ void salvarResultadoTxt(FILE *arquivo, const char *cenario, const char *algoritm
     fprintf(arquivo, "Trocas: %llu\n\n", m.trocas);
 }
 
-void salvarCabecalhoCsv(FILE *arquivo)
+double calcularMedia(const double *valores, int quantidade)
 {
-    fprintf(arquivo, "Problema;Cenario;Algoritmo;N;Tempo_s;Comparacoes;Trocas\n");
+    double soma = 0.0;
+
+    for (int i = 0; i < quantidade; i++)
+    {
+        soma += valores[i];
+    }
+
+    return soma / quantidade;
 }
 
-void salvarResultado(FILE *csv, FILE *txt, const char *cenario, const char *algoritmo, Metricas m)
+double calcularDesvioPadrao(const double *valores, int quantidade, double media)
 {
-    salvarResultadoCsv(csv, cenario, algoritmo, m);
-    salvarResultadoTxt(txt, cenario, algoritmo, m);
+    double soma = 0.0;
+
+    for (int i = 0; i < quantidade; i++)
+    {
+        double diferenca = valores[i] - media;
+        soma += diferenca * diferenca;
+    }
+
+    return sqrt(soma / (quantidade - 1));
 }
 
-void executarInsertion(const char *cenario, const int *vetorOriginal, FILE *csv, FILE *txt)
+void salvarResumoProblema2(FILE *txt, const char *algoritmo, double media, double desvioPadrao)
 {
-    int *vetor = (int *)malloc(N * sizeof(int));
-    if (vetor == NULL)
-        exit(1);
+    fprintf(txt, "Problema: 2\n");
+    fprintf(txt, "Cenario: Ordenado\n");
+    fprintf(txt, "%s\n", algoritmo);
+    fprintf(txt, "Resumo de 10 execucoes:\n");
+    fprintf(txt, "Tempo medio de execucao: %f s\n", media);
+    fprintf(txt, "Desvio padrao: %f s\n\n", desvioPadrao);
+}
 
-    copiarVetor(vetor, vetorOriginal, N);
-
+void problema1(FILE *csv, FILE *txtProblema1)
+{
     struct timespec inicio, fim;
     Metricas m;
 
+    int *vetorOriginalProblema1 = (int *)malloc(N_PROBLEMA1 * sizeof(int));
+    int *vetorTrabalhoProblema1 = (int *)malloc(N_PROBLEMA1 * sizeof(int));
+
+    if (vetorOriginalProblema1 == NULL || vetorTrabalhoProblema1 == NULL)
+    {
+        free(vetorOriginalProblema1);
+        free(vetorTrabalhoProblema1);
+        exit(1);
+    }
+
+    // ---- PROBLEMA 1: ALEATÓRIO ----
+    srand(42);
+    gerarVetorAleatorio(vetorOriginalProblema1, N_PROBLEMA1);
+
+    copiarVetor(vetorTrabalhoProblema1, vetorOriginalProblema1, N_PROBLEMA1);
     clock_gettime(CLOCK_MONOTONIC, &inicio);
-    insertionSort(vetor, N, &m);
+    insertionSort(vetorTrabalhoProblema1, N_PROBLEMA1, &m);
     clock_gettime(CLOCK_MONOTONIC, &fim);
-
     m.tempo_segundos = calcularTempo(inicio, fim);
-    salvarResultado(csv, txt, cenario, "Insertion Sort", m);
+    salvarResultadoCsv(csv, 1, "Aleatorio", "Insertion Sort", N_PROBLEMA1, m);
+    salvarResultadoTxt(txtProblema1, 1, "Aleatorio", "Insertion Sort", m);
 
-    free(vetor);
+    copiarVetor(vetorTrabalhoProblema1, vetorOriginalProblema1, N_PROBLEMA1);
+    clock_gettime(CLOCK_MONOTONIC, &inicio);
+    selectionSort(vetorTrabalhoProblema1, N_PROBLEMA1, &m);
+    clock_gettime(CLOCK_MONOTONIC, &fim);
+    m.tempo_segundos = calcularTempo(inicio, fim);
+    salvarResultadoCsv(csv, 1, "Aleatorio", "Selection Sort", N_PROBLEMA1, m);
+    salvarResultadoTxt(txtProblema1, 1, "Aleatorio", "Selection Sort", m);
+
+    copiarVetor(vetorTrabalhoProblema1, vetorOriginalProblema1, N_PROBLEMA1);
+    clock_gettime(CLOCK_MONOTONIC, &inicio);
+    bubbleSortMelhorado(vetorTrabalhoProblema1, N_PROBLEMA1, &m);
+    clock_gettime(CLOCK_MONOTONIC, &fim);
+    m.tempo_segundos = calcularTempo(inicio, fim);
+    salvarResultadoCsv(csv, 1, "Aleatorio", "Bubble Sort Melhorado", N_PROBLEMA1, m);
+    salvarResultadoTxt(txtProblema1, 1, "Aleatorio", "Bubble Sort Melhorado", m);
+
+    // ---- PROBLEMA 1: ORDENADO ----
+    gerarVetorOrdenado(vetorOriginalProblema1, N_PROBLEMA1);
+
+    copiarVetor(vetorTrabalhoProblema1, vetorOriginalProblema1, N_PROBLEMA1);
+    clock_gettime(CLOCK_MONOTONIC, &inicio);
+    insertionSort(vetorTrabalhoProblema1, N_PROBLEMA1, &m);
+    clock_gettime(CLOCK_MONOTONIC, &fim);
+    m.tempo_segundos = calcularTempo(inicio, fim);
+    salvarResultadoCsv(csv, 1, "Ordenado", "Insertion Sort", N_PROBLEMA1, m);
+    salvarResultadoTxt(txtProblema1, 1, "Ordenado", "Insertion Sort", m);
+
+    copiarVetor(vetorTrabalhoProblema1, vetorOriginalProblema1, N_PROBLEMA1);
+    clock_gettime(CLOCK_MONOTONIC, &inicio);
+    selectionSort(vetorTrabalhoProblema1, N_PROBLEMA1, &m);
+    clock_gettime(CLOCK_MONOTONIC, &fim);
+    m.tempo_segundos = calcularTempo(inicio, fim);
+    salvarResultadoCsv(csv, 1, "Ordenado", "Selection Sort", N_PROBLEMA1, m);
+    salvarResultadoTxt(txtProblema1, 1, "Ordenado", "Selection Sort", m);
+
+    copiarVetor(vetorTrabalhoProblema1, vetorOriginalProblema1, N_PROBLEMA1);
+    clock_gettime(CLOCK_MONOTONIC, &inicio);
+    bubbleSortMelhorado(vetorTrabalhoProblema1, N_PROBLEMA1, &m);
+    clock_gettime(CLOCK_MONOTONIC, &fim);
+    m.tempo_segundos = calcularTempo(inicio, fim);
+    salvarResultadoCsv(csv, 1, "Ordenado", "Bubble Sort Melhorado", N_PROBLEMA1, m);
+    salvarResultadoTxt(txtProblema1, 1, "Ordenado", "Bubble Sort Melhorado", m);
+
+    // ---- PROBLEMA 1: INVERSO ----
+    gerarVetorInverso(vetorOriginalProblema1, N_PROBLEMA1);
+
+    copiarVetor(vetorTrabalhoProblema1, vetorOriginalProblema1, N_PROBLEMA1);
+    clock_gettime(CLOCK_MONOTONIC, &inicio);
+    insertionSort(vetorTrabalhoProblema1, N_PROBLEMA1, &m);
+    clock_gettime(CLOCK_MONOTONIC, &fim);
+    m.tempo_segundos = calcularTempo(inicio, fim);
+    salvarResultadoCsv(csv, 1, "Inverso", "Insertion Sort", N_PROBLEMA1, m);
+    salvarResultadoTxt(txtProblema1, 1, "Inverso", "Insertion Sort", m);
+
+    copiarVetor(vetorTrabalhoProblema1, vetorOriginalProblema1, N_PROBLEMA1);
+    clock_gettime(CLOCK_MONOTONIC, &inicio);
+    selectionSort(vetorTrabalhoProblema1, N_PROBLEMA1, &m);
+    clock_gettime(CLOCK_MONOTONIC, &fim);
+    m.tempo_segundos = calcularTempo(inicio, fim);
+    salvarResultadoCsv(csv, 1, "Inverso", "Selection Sort", N_PROBLEMA1, m);
+    salvarResultadoTxt(txtProblema1, 1, "Inverso", "Selection Sort", m);
+
+    copiarVetor(vetorTrabalhoProblema1, vetorOriginalProblema1, N_PROBLEMA1);
+    clock_gettime(CLOCK_MONOTONIC, &inicio);
+    bubbleSortMelhorado(vetorTrabalhoProblema1, N_PROBLEMA1, &m);
+    clock_gettime(CLOCK_MONOTONIC, &fim);
+    m.tempo_segundos = calcularTempo(inicio, fim);
+    salvarResultadoCsv(csv, 1, "Inverso", "Bubble Sort Melhorado", N_PROBLEMA1, m);
+    salvarResultadoTxt(txtProblema1, 1, "Inverso", "Bubble Sort Melhorado", m);
+
+    free(vetorOriginalProblema1);
+    free(vetorTrabalhoProblema1);
 }
 
-void executarSelection(const char *cenario, const int *vetorOriginal, FILE *csv, FILE *txt)
+void problema2(FILE *csv, FILE *txtProblema2)
 {
-    int *vetor = (int *)malloc(N * sizeof(int));
-    if (vetor == NULL)
-        exit(1);
-
-    copiarVetor(vetor, vetorOriginal, N);
-
     struct timespec inicio, fim;
     Metricas m;
+    int *vetorOriginalProblema2 = (int *)malloc(N_PROBLEMA2 * sizeof(int));
+    int *vetorTrabalhoProblema2 = (int *)malloc(N_PROBLEMA2 * sizeof(int));
+    double temposHeap[EXECUCOES_PROBLEMA2];
+    double temposQuick[EXECUCOES_PROBLEMA2];
 
-    clock_gettime(CLOCK_MONOTONIC, &inicio);
-    selectionSort(vetor, N, &m);
-    clock_gettime(CLOCK_MONOTONIC, &fim);
-
-    m.tempo_segundos = calcularTempo(inicio, fim);
-    salvarResultado(csv, txt, cenario, "Selection Sort", m);
-
-    free(vetor);
-}
-
-void executarBubble(const char *cenario, const int *vetorOriginal, FILE *csv, FILE *txt)
-{
-    int *vetor = (int *)malloc(N * sizeof(int));
-    if (vetor == NULL)
+    if (vetorOriginalProblema2 == NULL || vetorTrabalhoProblema2 == NULL)
+    {
+        free(vetorOriginalProblema2);
+        free(vetorTrabalhoProblema2);
         exit(1);
+    }
 
-    copiarVetor(vetor, vetorOriginal, N);
+    // ---- PROBLEMA 2 ----
+    gerarVetorOrdenado(vetorOriginalProblema2, N_PROBLEMA2);
 
-    struct timespec inicio, fim;
-    Metricas m;
+    for (int i = 0; i < EXECUCOES_PROBLEMA2; i++)
+    {
+        char cenario[32];
+        sprintf(cenario, "Ordenado Execucao %d", i + 1);
 
-    clock_gettime(CLOCK_MONOTONIC, &inicio);
-    bubbleSortMelhorado(vetor, N, &m);
-    clock_gettime(CLOCK_MONOTONIC, &fim);
+        copiarVetor(vetorTrabalhoProblema2, vetorOriginalProblema2, N_PROBLEMA2);
+        clock_gettime(CLOCK_MONOTONIC, &inicio);
+        heapSort(vetorTrabalhoProblema2, N_PROBLEMA2, &m);
+        clock_gettime(CLOCK_MONOTONIC, &fim);
+        m.tempo_segundos = calcularTempo(inicio, fim);
+        temposHeap[i] = m.tempo_segundos;
+        salvarResultadoCsv(csv, 2, cenario, "Heap Sort", N_PROBLEMA2, m);
+        salvarResultadoTxt(txtProblema2, 2, cenario, "Heap Sort", m);
 
-    m.tempo_segundos = calcularTempo(inicio, fim);
-    salvarResultado(csv, txt, cenario, "Bubble Sort Melhorado", m);
+        copiarVetor(vetorTrabalhoProblema2, vetorOriginalProblema2, N_PROBLEMA2);
+        zerarMetricas(&m);
+        clock_gettime(CLOCK_MONOTONIC, &inicio);
+        quickSort(vetorTrabalhoProblema2, 0, N_PROBLEMA2 - 1, &m);
+        clock_gettime(CLOCK_MONOTONIC, &fim);
+        m.tempo_segundos = calcularTempo(inicio, fim);
+        temposQuick[i] = m.tempo_segundos;
+        salvarResultadoCsv(csv, 2, cenario, "Quick Sort", N_PROBLEMA2, m);
+        salvarResultadoTxt(txtProblema2, 2, cenario, "Quick Sort", m);
+    }
 
-    free(vetor);
-}
+    double mediaHeap = calcularMedia(temposHeap, EXECUCOES_PROBLEMA2);
+    double mediaQuick = calcularMedia(temposQuick, EXECUCOES_PROBLEMA2);
+    double desvioHeap = calcularDesvioPadrao(temposHeap, EXECUCOES_PROBLEMA2, mediaHeap);
+    double desvioQuick = calcularDesvioPadrao(temposQuick, EXECUCOES_PROBLEMA2, mediaQuick);
 
-void executarCenario(const char *cenario, int *vetorOriginal, FILE *csv, FILE *txt)
-{
-    executarInsertion(cenario, vetorOriginal, csv, txt);
-    executarSelection(cenario, vetorOriginal, csv, txt);
-    executarBubble(cenario, vetorOriginal, csv, txt);
+    salvarResumoProblema2(txtProblema2, "Heap Sort", mediaHeap, desvioHeap);
+    salvarResumoProblema2(txtProblema2, "Quick Sort", mediaQuick, desvioQuick);
+
+    free(vetorOriginalProblema2);
+    free(vetorTrabalhoProblema2);
 }
 
 int main()
 {
-    int *vetorOriginal = (int *)malloc(N * sizeof(int));
-
-    if (vetorOriginal == NULL)
-        return 1;
-
     FILE *csv = fopen("data/resultado.csv", "w");
-    FILE *txt = fopen("data/resultado.txt", "w");
+    FILE *txtProblema1 = fopen("data/resultado_problema1.txt", "w");
+    FILE *txtProblema2 = fopen("data/resultado_problema2.txt", "w");
 
-    if (csv == NULL || txt == NULL)
+    if (csv == NULL || txtProblema1 == NULL || txtProblema2 == NULL)
     {
-        free(vetorOriginal);
-
         if (csv != NULL)
             fclose(csv);
 
-        if (txt != NULL)
-            fclose(txt);
+        if (txtProblema1 != NULL)
+            fclose(txtProblema1);
+
+        if (txtProblema2 != NULL)
+            fclose(txtProblema2);
 
         return 1;
     }
 
-    salvarCabecalhoCsv(csv);
+    fprintf(csv, "Problema;Cenario;Algoritmo;N;Tempo_s;Comparacoes;Trocas\n");
 
-    srand(42);
-    gerarVetorAleatorio(vetorOriginal, N);
-    executarCenario("Aleatorio", vetorOriginal, csv, txt);
-
-    gerarVetorOrdenado(vetorOriginal, N);
-    executarCenario("Ordenado", vetorOriginal, csv, txt);
-
-    gerarVetorInverso(vetorOriginal, N);
-    executarCenario("Inverso", vetorOriginal, csv, txt);
+    problema1(csv, txtProblema1);
+    problema2(csv, txtProblema2);
 
     fclose(csv);
-    fclose(txt);
-    free(vetorOriginal);
+    fclose(txtProblema1);
+    fclose(txtProblema2);
     return 0;
 }

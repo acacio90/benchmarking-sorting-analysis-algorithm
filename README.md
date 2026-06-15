@@ -44,7 +44,7 @@ benchmarking-sorting-analysis-algorithm/
 Para compilar o projeto, execute o comando abaixo na raiz do repositório:
 
 ```bash
-gcc src/main.c src/ordenacao.c -o programa
+gcc src/main.c src/ordenacao.c -lm -o programa
 ```
 
 ## Como executar
@@ -58,7 +58,15 @@ Após a compilação, execute o programa com:
 O programa gera automaticamente dois arquivos dentro da pasta `data`:
 
 * `data/resultado.csv`: dados brutos em formato separado por ponto e vírgula.
-* `data/resultado.txt`: resultados em formato textual para leitura direta.
+* `data/resultado_problema1.txt`: resultados do Problema 1 em formato textual.
+* `data/resultado_problema2.txt`: resultados do Problema 2 em formato textual.
+
+Para o Problema 2, como o Quick Sort clássico usa o último elemento como pivô e o vetor de entrada é ordenado, execute no WSL/Linux com a pilha ampliada:
+
+```bash
+ulimit -s unlimited
+./programa
+```
 
 ## Exemplo de saída
 
@@ -69,7 +77,7 @@ Problema;Cenario;Algoritmo;N;Tempo_s;Comparacoes;Trocas
 1;Aleatorio;Insertion Sort;30000;0.308036;225697282;225667291
 ```
 
-Exemplo do arquivo `data/resultado.txt`:
+Exemplo dos arquivos `.txt` por problema:
 
 ```txt
 Cenario: Aleatorio
@@ -96,5 +104,5 @@ O projeto está em fase de implementação dos algoritmos exigidos no trabalho. 
 Próximas etapas:
 
 * Automatizar a execução dos algoritmos dos Problemas 2 e 3;
-* Gerar arquivo com os dados brutos dos testes dos Problemas 2 e 3;
+* Gerar arquivo com os dados brutos dos testes do Problema 3;
 * Criar o relatório final com tabelas, gráficos e análise dos resultados.
