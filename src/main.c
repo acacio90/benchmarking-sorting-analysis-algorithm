@@ -7,6 +7,7 @@
 
 #define N_PROBLEMA1 30000
 #define N_PROBLEMA2 5000
+#define N_PROBLEMA3 50000
 #define EXECUCOES_PROBLEMA2 10
 
 // ---- FUNÇÕES AUXILIARES DE GERAÇÃO DE DADOS ----
@@ -26,6 +27,21 @@ void gerarVetorInverso(int *v, int n)
 {
     for (int i = 0; i < n; i++)
         v[i] = n - i;
+}
+
+void gerarVetorQuaseOrdenado(int *v, int n)
+{
+    gerarVetorOrdenado(v, n);
+
+    int quantidadeTrocas = n / 200;
+
+    for (int i = 0; i < quantidadeTrocas; i++)
+    {
+        int posicao = rand() % (n - 1);
+        int temp = v[posicao];
+        v[posicao] = v[posicao + 1];
+        v[posicao + 1] = temp;
+    }
 }
 
 void copiarVetor(int *destino, const int *origem, int n)
@@ -88,16 +104,6 @@ double calcularDesvioPadrao(const double *valores, int quantidade, double media)
     }
 
     return sqrt(soma / (quantidade - 1));
-}
-
-void salvarResumoProblema2(FILE *txt, const char *algoritmo, double media, double desvioPadrao)
-{
-    fprintf(txt, "Problema: 2\n");
-    fprintf(txt, "Cenario: Ordenado\n");
-    fprintf(txt, "%s\n", algoritmo);
-    fprintf(txt, "Resumo de 10 execucoes:\n");
-    fprintf(txt, "Tempo medio de execucao: %f s\n", media);
-    fprintf(txt, "Desvio padrao: %f s\n\n", desvioPadrao);
 }
 
 void problema1(FILE *csv, FILE *txtProblema1)
@@ -250,11 +256,60 @@ void problema2(FILE *csv, FILE *txtProblema2)
     double desvioHeap = calcularDesvioPadrao(temposHeap, EXECUCOES_PROBLEMA2, mediaHeap);
     double desvioQuick = calcularDesvioPadrao(temposQuick, EXECUCOES_PROBLEMA2, mediaQuick);
 
-    salvarResumoProblema2(txtProblema2, "Heap Sort", mediaHeap, desvioHeap);
-    salvarResumoProblema2(txtProblema2, "Quick Sort", mediaQuick, desvioQuick);
+    fprintf(txtProblema2, "Problema: 2\n");
+    fprintf(txtProblema2, "Cenario: Ordenado\n");
+    fprintf(txtProblema2, "Heap Sort\n");
+    fprintf(txtProblema2, "Resumo de 10 execucoes:\n");
+    fprintf(txtProblema2, "Tempo medio de execucao: %f s\n", mediaHeap);
+    fprintf(txtProblema2, "Desvio padrao: %f s\n\n", desvioHeap);
+
+    fprintf(txtProblema2, "Problema: 2\n");
+    fprintf(txtProblema2, "Cenario: Ordenado\n");
+    fprintf(txtProblema2, "Quick Sort\n");
+    fprintf(txtProblema2, "Resumo de 10 execucoes:\n");
+    fprintf(txtProblema2, "Tempo medio de execucao: %f s\n", mediaQuick);
+    fprintf(txtProblema2, "Desvio padrao: %f s\n\n", desvioQuick);
 
     free(vetorOriginalProblema2);
     free(vetorTrabalhoProblema2);
+}
+
+void problema3(FILE *csv, FILE *txtProblema3)
+{
+    struct timespec inicio, fim;
+    Metricas m;
+    int *vetorOriginalProblema3 = (int *)malloc(N_PROBLEMA3 * sizeof(int));
+    int *vetorTrabalhoProblema3 = (int *)malloc(N_PROBLEMA3 * sizeof(int));
+
+    if (vetorOriginalProblema3 == NULL || vetorTrabalhoProblema3 == NULL)
+    {
+        free(vetorOriginalProblema3);
+        free(vetorTrabalhoProblema3);
+        exit(1);
+    }
+
+    // ---- PROBLEMA 3 ----
+    srand(42);
+    gerarVetorQuaseOrdenado(vetorOriginalProblema3, N_PROBLEMA3);
+
+    copiarVetor(vetorTrabalhoProblema3, vetorOriginalProblema3, N_PROBLEMA3);
+    clock_gettime(CLOCK_MONOTONIC, &inicio);
+    insertionSort(vetorTrabalhoProblema3, N_PROBLEMA3, &m);
+    clock_gettime(CLOCK_MONOTONIC, &fim);
+    m.tempo_segundos = calcularTempo(inicio, fim);
+    salvarResultadoCsv(csv, 3, "Quase Ordenado", "Insertion Sort", N_PROBLEMA3, m);
+    salvarResultadoTxt(txtProblema3, 3, "Quase Ordenado", "Insertion Sort", m);
+
+    copiarVetor(vetorTrabalhoProblema3, vetorOriginalProblema3, N_PROBLEMA3);
+    clock_gettime(CLOCK_MONOTONIC, &inicio);
+    shellSort(vetorTrabalhoProblema3, N_PROBLEMA3, &m);
+    clock_gettime(CLOCK_MONOTONIC, &fim);
+    m.tempo_segundos = calcularTempo(inicio, fim);
+    salvarResultadoCsv(csv, 3, "Quase Ordenado", "Shell Sort", N_PROBLEMA3, m);
+    salvarResultadoTxt(txtProblema3, 3, "Quase Ordenado", "Shell Sort", m);
+
+    free(vetorOriginalProblema3);
+    free(vetorTrabalhoProblema3);
 }
 
 int main()
@@ -262,8 +317,9 @@ int main()
     FILE *csv = fopen("data/resultado.csv", "w");
     FILE *txtProblema1 = fopen("data/resultado_problema1.txt", "w");
     FILE *txtProblema2 = fopen("data/resultado_problema2.txt", "w");
+    FILE *txtProblema3 = fopen("data/resultado_problema3.txt", "w");
 
-    if (csv == NULL || txtProblema1 == NULL || txtProblema2 == NULL)
+    if (csv == NULL || txtProblema1 == NULL || txtProblema2 == NULL || txtProblema3 == NULL)
     {
         if (csv != NULL)
             fclose(csv);
@@ -274,6 +330,9 @@ int main()
         if (txtProblema2 != NULL)
             fclose(txtProblema2);
 
+        if (txtProblema3 != NULL)
+            fclose(txtProblema3);
+
         return 1;
     }
 
@@ -281,9 +340,11 @@ int main()
 
     problema1(csv, txtProblema1);
     problema2(csv, txtProblema2);
+    problema3(csv, txtProblema3);
 
     fclose(csv);
     fclose(txtProblema1);
     fclose(txtProblema2);
+    fclose(txtProblema3);
     return 0;
 }

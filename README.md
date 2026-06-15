@@ -34,7 +34,7 @@ benchmarking-sorting-analysis-algorithm/
 
 ## Descrição dos arquivos
 
-* `src/main.c`: arquivo principal do programa, responsável pela criação dos vetores, execução dos Problemas 1 e 2 e gravação dos resultados.
+* `src/main.c`: arquivo principal do programa, responsável pela criação dos vetores, execução dos Problemas 1, 2 e 3 e gravação dos resultados.
 * `src/ordenacao.c`: contém a implementação dos algoritmos de ordenação.
 * `src/ordenacao.h`: contém a estrutura de métricas e as declarações das funções de ordenação.
 * `data/`: pasta reservada para armazenar os resultados brutos dos experimentos em formato `.csv` ou `.txt`.
@@ -71,6 +71,7 @@ O programa gera automaticamente os seguintes arquivos dentro da pasta `data`:
 * `data/resultado.csv`: dados brutos em formato separado por ponto e vírgula.
 * `data/resultado_problema1.txt`: resultados do Problema 1 em formato textual.
 * `data/resultado_problema2.txt`: resultados do Problema 2 em formato textual.
+* `data/resultado_problema3.txt`: resultados do Problema 3 em formato textual.
 
 ## Exemplo de saída
 
@@ -110,9 +111,8 @@ Experimentos já automatizados:
 
 * Problema 1: Insertion Sort, Selection Sort e Bubble Sort Melhorado nos cenários aleatório, ordenado e inverso com `N = 30000`.
 * Problema 2: Heap Sort e Quick Sort clássico em vetor ordenado com `N = 5000`, 10 execuções, tempo médio e desvio padrão.
+* Problema 3: Insertion Sort e Shell Sort em vetor quase ordenado com `N = 50000`.
 
 Próximas etapas:
 
-* Automatizar a execução dos algoritmos do Problema 3;
-* Gerar arquivo textual `data/resultado_problema3.txt`;
 * Criar o relatório final com tabelas, gráficos e análise dos resultados.
