@@ -7,6 +7,14 @@ void zerarMetricas(Metricas *m)
     m->tempo_segundos = 0.0;
 }
 
+static void trocarElementos(int *a, int *b, Metricas *m)
+{
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+    m->trocas++;
+}
+
 void selectionSort(int *vetor, int n, Metricas *m)
 {
     zerarMetricas(m);
@@ -93,5 +101,39 @@ void insertionSort(int *vetor, int n, Metricas *m)
         }
 
         vetor[j + 1] = chave;
+    }
+}
+
+void quickSort(int *vetor, int inicio, int fim, Metricas *m)
+{
+    if (inicio < fim)
+    {
+        int pivo = vetor[fim];
+        int i = inicio - 1;
+
+        for (int j = inicio; j < fim; j++)
+        {
+            m->comparacoes++;
+
+            if (vetor[j] <= pivo)
+            {
+                i++;
+
+                if (i != j)
+                {
+                    trocarElementos(&vetor[i], &vetor[j], m);
+                }
+            }
+        }
+
+        if (i + 1 != fim)
+        {
+            trocarElementos(&vetor[i + 1], &vetor[fim], m);
+        }
+
+        int posicaoPivo = i + 1;
+
+        quickSort(vetor, inicio, posicaoPivo - 1, m);
+        quickSort(vetor, posicaoPivo + 1, fim, m);
     }
 }
