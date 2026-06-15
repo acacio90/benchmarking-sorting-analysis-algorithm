@@ -55,28 +55,29 @@ Após a compilação, execute o programa com:
 .\programa.exe
 ```
 
+O programa gera automaticamente dois arquivos dentro da pasta `data`:
+
+* `data/resultado.csv`: dados brutos em formato separado por ponto e vírgula.
+* `data/resultado.txt`: resultados em formato textual para leitura direta.
+
 ## Exemplo de saída
 
+Exemplo do arquivo `data/resultado.csv`:
+
+```csv
+Problema;Cenario;Algoritmo;N;Tempo_s;Comparacoes;Trocas
+1;Aleatorio;Insertion Sort;30000;0.308036;225697282;225667291
+```
+
+Exemplo do arquivo `data/resultado.txt`:
+
 ```txt
+Cenario: Aleatorio
 Bubble Sort Melhorado
 Resultados:
 Tempo: 2.793951 s
 Comparacoes: 449885077
 Trocas: 225521470
-```
-
-## Salvando os resultados em arquivo
-
-Para salvar os resultados em um arquivo de texto ou CSV dentro da pasta `data`, utilize o redirecionamento de saída:
-
-```bash
-.\programa.exe > data/resultado.txt
-```
-
-Ou, futuramente, quando o programa gerar resultados em formato separado por ponto e vírgula:
-
-```bash
-.\programa.exe > data/problema1.csv
 ```
 
 ## Situação atual do desenvolvimento
@@ -94,10 +95,6 @@ O projeto está em fase de implementação dos algoritmos exigidos no trabalho. 
 
 Próximas etapas:
 
-* Automatizar a execução dos algoritmos nos três cenários do Problema 1:
-
-  * vetor aleatório;
-  * vetor ordenado;
-  * vetor inverso.
-* Gerar arquivo com os dados brutos dos testes;
+* Automatizar a execução dos algoritmos dos Problemas 2 e 3;
+* Gerar arquivo com os dados brutos dos testes dos Problemas 2 e 3;
 * Criar o relatório final com tabelas, gráficos e análise dos resultados.

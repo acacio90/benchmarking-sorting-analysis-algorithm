@@ -1,35 +1,63 @@
+Cenario: Aleatorio
 Insertion Sort
 Resultados:
-Tempo: 0.308036 s
+Tempo: 0.309520 s
 Comparacoes: 225697282
 Trocas: 225667291
 
+Cenario: Aleatorio
 Selection Sort
 Resultados:
-Tempo: 0.371654 s
+Tempo: 0.381058 s
 Comparacoes: 449985000
 Trocas: 29992
 
+Cenario: Aleatorio
 Bubble Sort Melhorado
 Resultados:
-Tempo: 1.239480 s
+Tempo: 1.263528 s
 Comparacoes: 449897368
 Trocas: 225667291
 
-Shell Sort
+Cenario: Ordenado
+Insertion Sort
 Resultados:
-Tempo: 0.003754 s
-Comparacoes: 926059
-Trocas: 551566
+Tempo: 0.000040 s
+Comparacoes: 29999
+Trocas: 0
 
-Quick Sort
+Cenario: Ordenado
+Selection Sort
 Resultados:
-Tempo: 0.002045 s
-Comparacoes: 553969
-Trocas: 247726
+Tempo: 0.373036 s
+Comparacoes: 449985000
+Trocas: 0
 
-Heap Sort
+Cenario: Ordenado
+Bubble Sort Melhorado
 Resultados:
-Tempo: 0.003504 s
-Comparacoes: 800794
-Trocas: 420002
+Tempo: 0.000033 s
+Comparacoes: 29999
+Trocas: 0
+
+Cenario: Inverso
+Insertion Sort
+Resultados:
+Tempo: 0.619971 s
+Comparacoes: 449985000
+Trocas: 449985000
+
+Cenario: Inverso
+Selection Sort
+Resultados:
+Tempo: 0.426148 s
+Comparacoes: 449985000
+Trocas: 15000
+
+Cenario: Inverso
+Bubble Sort Melhorado
+Resultados:
+Tempo: 1.137189 s
+Comparacoes: 449985000
+Trocas: 449985000
+

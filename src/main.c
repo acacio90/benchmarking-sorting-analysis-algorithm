@@ -4,6 +4,8 @@
 
 #include "ordenacao.h"
 
+#define N 30000
+
 // ---- FUNÇÕES AUXILIARES DE GERAÇÃO DE DADOS ----
 void gerarVetorAleatorio(int *v, int n)
 {
@@ -37,109 +39,145 @@ double calcularTempo(struct timespec inicio, struct timespec fim)
            (fim.tv_nsec - inicio.tv_nsec) / 1e9;
 }
 
+void salvarResultadoCsv(FILE *arquivo, const char *cenario, const char *algoritmo, Metricas m)
+{
+    fprintf(arquivo, "1;%s;%s;%d;%f;%llu;%llu\n",
+            cenario,
+            algoritmo,
+            N,
+            m.tempo_segundos,
+            m.comparacoes,
+            m.trocas);
+}
+
+void salvarResultadoTxt(FILE *arquivo, const char *cenario, const char *algoritmo, Metricas m)
+{
+    fprintf(arquivo, "Cenario: %s\n", cenario);
+    fprintf(arquivo, "%s\n", algoritmo);
+    fprintf(arquivo, "Resultados:\n");
+    fprintf(arquivo, "Tempo: %f s\n", m.tempo_segundos);
+    fprintf(arquivo, "Comparacoes: %llu\n", m.comparacoes);
+    fprintf(arquivo, "Trocas: %llu\n\n", m.trocas);
+}
+
+void salvarCabecalhoCsv(FILE *arquivo)
+{
+    fprintf(arquivo, "Problema;Cenario;Algoritmo;N;Tempo_s;Comparacoes;Trocas\n");
+}
+
+void salvarResultado(FILE *csv, FILE *txt, const char *cenario, const char *algoritmo, Metricas m)
+{
+    salvarResultadoCsv(csv, cenario, algoritmo, m);
+    salvarResultadoTxt(txt, cenario, algoritmo, m);
+}
+
+void executarInsertion(const char *cenario, const int *vetorOriginal, FILE *csv, FILE *txt)
+{
+    int *vetor = (int *)malloc(N * sizeof(int));
+    if (vetor == NULL)
+        exit(1);
+
+    copiarVetor(vetor, vetorOriginal, N);
+
+    struct timespec inicio, fim;
+    Metricas m;
+
+    clock_gettime(CLOCK_MONOTONIC, &inicio);
+    insertionSort(vetor, N, &m);
+    clock_gettime(CLOCK_MONOTONIC, &fim);
+
+    m.tempo_segundos = calcularTempo(inicio, fim);
+    salvarResultado(csv, txt, cenario, "Insertion Sort", m);
+
+    free(vetor);
+}
+
+void executarSelection(const char *cenario, const int *vetorOriginal, FILE *csv, FILE *txt)
+{
+    int *vetor = (int *)malloc(N * sizeof(int));
+    if (vetor == NULL)
+        exit(1);
+
+    copiarVetor(vetor, vetorOriginal, N);
+
+    struct timespec inicio, fim;
+    Metricas m;
+
+    clock_gettime(CLOCK_MONOTONIC, &inicio);
+    selectionSort(vetor, N, &m);
+    clock_gettime(CLOCK_MONOTONIC, &fim);
+
+    m.tempo_segundos = calcularTempo(inicio, fim);
+    salvarResultado(csv, txt, cenario, "Selection Sort", m);
+
+    free(vetor);
+}
+
+void executarBubble(const char *cenario, const int *vetorOriginal, FILE *csv, FILE *txt)
+{
+    int *vetor = (int *)malloc(N * sizeof(int));
+    if (vetor == NULL)
+        exit(1);
+
+    copiarVetor(vetor, vetorOriginal, N);
+
+    struct timespec inicio, fim;
+    Metricas m;
+
+    clock_gettime(CLOCK_MONOTONIC, &inicio);
+    bubbleSortMelhorado(vetor, N, &m);
+    clock_gettime(CLOCK_MONOTONIC, &fim);
+
+    m.tempo_segundos = calcularTempo(inicio, fim);
+    salvarResultado(csv, txt, cenario, "Bubble Sort Melhorado", m);
+
+    free(vetor);
+}
+
+void executarCenario(const char *cenario, int *vetorOriginal, FILE *csv, FILE *txt)
+{
+    executarInsertion(cenario, vetorOriginal, csv, txt);
+    executarSelection(cenario, vetorOriginal, csv, txt);
+    executarBubble(cenario, vetorOriginal, csv, txt);
+}
+
 int main()
 {
-    int N = 30000;
     int *vetorOriginal = (int *)malloc(N * sizeof(int));
-    int *vetorInsertion = (int *)malloc(N * sizeof(int));
-    int *vetorSelection = (int *)malloc(N * sizeof(int));
-    int *vetorBubble = (int *)malloc(N * sizeof(int));
-    int *vetorShell = (int *)malloc(N * sizeof(int));
-    int *vetorQuick = (int *)malloc(N * sizeof(int));
-    int *vetorHeap = (int *)malloc(N * sizeof(int));
 
-    if (vetorOriginal == NULL || vetorInsertion == NULL || vetorSelection == NULL ||
-        vetorBubble == NULL || vetorShell == NULL || vetorQuick == NULL || vetorHeap == NULL)
+    if (vetorOriginal == NULL)
+        return 1;
+
+    FILE *csv = fopen("data/resultado.csv", "w");
+    FILE *txt = fopen("data/resultado.txt", "w");
+
+    if (csv == NULL || txt == NULL)
     {
         free(vetorOriginal);
-        free(vetorInsertion);
-        free(vetorSelection);
-        free(vetorBubble);
-        free(vetorShell);
-        free(vetorQuick);
-        free(vetorHeap);
+
+        if (csv != NULL)
+            fclose(csv);
+
+        if (txt != NULL)
+            fclose(txt);
+
         return 1;
     }
 
+    salvarCabecalhoCsv(csv);
+
     srand(42);
-
     gerarVetorAleatorio(vetorOriginal, N);
-    copiarVetor(vetorInsertion, vetorOriginal, N);
-    copiarVetor(vetorSelection, vetorOriginal, N);
-    copiarVetor(vetorBubble, vetorOriginal, N);
-    copiarVetor(vetorShell, vetorOriginal, N);
-    copiarVetor(vetorQuick, vetorOriginal, N);
-    copiarVetor(vetorHeap, vetorOriginal, N);
+    executarCenario("Aleatorio", vetorOriginal, csv, txt);
 
-    struct timespec inicio, fim;
-    Metricas metricasInsertion;
-    Metricas metricasSelection;
-    Metricas metricasBubble;
-    Metricas metricasShell;
-    Metricas metricasQuick;
-    Metricas metricasHeap;
+    gerarVetorOrdenado(vetorOriginal, N);
+    executarCenario("Ordenado", vetorOriginal, csv, txt);
 
-    clock_gettime(CLOCK_MONOTONIC, &inicio);
-    insertionSort(vetorInsertion, N, &metricasInsertion);
-    clock_gettime(CLOCK_MONOTONIC, &fim);
-    metricasInsertion.tempo_segundos = calcularTempo(inicio, fim);
+    gerarVetorInverso(vetorOriginal, N);
+    executarCenario("Inverso", vetorOriginal, csv, txt);
 
-    clock_gettime(CLOCK_MONOTONIC, &inicio);
-    selectionSort(vetorSelection, N, &metricasSelection);
-    clock_gettime(CLOCK_MONOTONIC, &fim);
-    metricasSelection.tempo_segundos = calcularTempo(inicio, fim);
-
-    clock_gettime(CLOCK_MONOTONIC, &inicio);
-    bubbleSortMelhorado(vetorBubble, N, &metricasBubble);
-    clock_gettime(CLOCK_MONOTONIC, &fim);
-    metricasBubble.tempo_segundos = calcularTempo(inicio, fim);
-
-    clock_gettime(CLOCK_MONOTONIC, &inicio);
-    shellSort(vetorShell, N, &metricasShell);
-    clock_gettime(CLOCK_MONOTONIC, &fim);
-    metricasShell.tempo_segundos = calcularTempo(inicio, fim);
-
-    zerarMetricas(&metricasQuick);
-    clock_gettime(CLOCK_MONOTONIC, &inicio);
-    quickSort(vetorQuick, 0, N - 1, &metricasQuick);
-    clock_gettime(CLOCK_MONOTONIC, &fim);
-    metricasQuick.tempo_segundos = calcularTempo(inicio, fim);
-
-    clock_gettime(CLOCK_MONOTONIC, &inicio);
-    heapSort(vetorHeap, N, &metricasHeap);
-    clock_gettime(CLOCK_MONOTONIC, &fim);
-    metricasHeap.tempo_segundos = calcularTempo(inicio, fim);
-
-    printf("Insertion Sort\n");
-    printf("Resultados:\nTempo: %f s\nComparacoes: %llu\nTrocas: %llu\n\n",
-           metricasInsertion.tempo_segundos, metricasInsertion.comparacoes, metricasInsertion.trocas);
-
-    printf("Selection Sort\n");
-    printf("Resultados:\nTempo: %f s\nComparacoes: %llu\nTrocas: %llu\n\n",
-           metricasSelection.tempo_segundos, metricasSelection.comparacoes, metricasSelection.trocas);
-
-    printf("Bubble Sort Melhorado\n");
-    printf("Resultados:\nTempo: %f s\nComparacoes: %llu\nTrocas: %llu\n\n",
-           metricasBubble.tempo_segundos, metricasBubble.comparacoes, metricasBubble.trocas);
-
-    printf("Shell Sort\n");
-    printf("Resultados:\nTempo: %f s\nComparacoes: %llu\nTrocas: %llu\n\n",
-           metricasShell.tempo_segundos, metricasShell.comparacoes, metricasShell.trocas);
-
-    printf("Quick Sort\n");
-    printf("Resultados:\nTempo: %f s\nComparacoes: %llu\nTrocas: %llu\n\n",
-           metricasQuick.tempo_segundos, metricasQuick.comparacoes, metricasQuick.trocas);
-
-    printf("Heap Sort\n");
-    printf("Resultados:\nTempo: %f s\nComparacoes: %llu\nTrocas: %llu\n",
-           metricasHeap.tempo_segundos, metricasHeap.comparacoes, metricasHeap.trocas);
-
+    fclose(csv);
+    fclose(txt);
     free(vetorOriginal);
-    free(vetorInsertion);
-    free(vetorSelection);
-    free(vetorBubble);
-    free(vetorShell);
-    free(vetorQuick);
-    free(vetorHeap);
     return 0;
 }
