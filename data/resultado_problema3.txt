@@ -2,15 +2,15 @@ Problema: 3
 Cenario: Quase Ordenado
 Insertion Sort
 Resultados:
-Tempo: 0.000071 s
-Comparacoes: 50249
-Trocas: 250
+Tempo: 0.000164 s
+Comparacoes: 50247
+Trocas: 248
 
 Problema: 3
 Cenario: Quase Ordenado
 Shell Sort
 Resultados:
-Tempo: 0.001089 s
-Comparacoes: 700256
-Trocas: 250
+Tempo: 0.002536 s
+Comparacoes: 700254
+Trocas: 248
 

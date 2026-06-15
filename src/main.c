@@ -314,15 +314,25 @@ void problema3(FILE *csv, FILE *txtProblema3)
 
 int main()
 {
-    FILE *csv = fopen("data/resultado.csv", "w");
+    FILE *csvProblema1 = fopen("data/problema1.csv", "w");
+    FILE *csvProblema2 = fopen("data/problema2.csv", "w");
+    FILE *csvProblema3 = fopen("data/problema3.csv", "w");
+
     FILE *txtProblema1 = fopen("data/resultado_problema1.txt", "w");
     FILE *txtProblema2 = fopen("data/resultado_problema2.txt", "w");
     FILE *txtProblema3 = fopen("data/resultado_problema3.txt", "w");
 
-    if (csv == NULL || txtProblema1 == NULL || txtProblema2 == NULL || txtProblema3 == NULL)
+    if (csvProblema1 == NULL || csvProblema2 == NULL || csvProblema3 == NULL ||
+        txtProblema1 == NULL || txtProblema2 == NULL || txtProblema3 == NULL)
     {
-        if (csv != NULL)
-            fclose(csv);
+        if (csvProblema1 != NULL)
+            fclose(csvProblema1);
+
+        if (csvProblema2 != NULL)
+            fclose(csvProblema2);
+
+        if (csvProblema3 != NULL)
+            fclose(csvProblema3);
 
         if (txtProblema1 != NULL)
             fclose(txtProblema1);
@@ -336,15 +346,21 @@ int main()
         return 1;
     }
 
-    fprintf(csv, "Problema;Cenario;Algoritmo;N;Tempo_s;Comparacoes;Trocas\n");
+    fprintf(csvProblema1, "Problema;Cenario;Algoritmo;N;Tempo_s;Comparacoes;Trocas\n");
+    fprintf(csvProblema2, "Problema;Cenario;Algoritmo;N;Tempo_s;Comparacoes;Trocas\n");
+    fprintf(csvProblema3, "Problema;Cenario;Algoritmo;N;Tempo_s;Comparacoes;Trocas\n");
 
-    problema1(csv, txtProblema1);
-    problema2(csv, txtProblema2);
-    problema3(csv, txtProblema3);
+    problema1(csvProblema1, txtProblema1);
+    problema2(csvProblema2, txtProblema2);
+    problema3(csvProblema3, txtProblema3);
 
-    fclose(csv);
+    fclose(csvProblema1);
+    fclose(csvProblema2);
+    fclose(csvProblema3);
+
     fclose(txtProblema1);
     fclose(txtProblema2);
     fclose(txtProblema3);
+
     return 0;
 }
