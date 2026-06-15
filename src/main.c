@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include "heap.h"
 #include "ordenacao.h"
 
 // ---- FUNÇÕES AUXILIARES DE GERAÇÃO DE DADOS ----
@@ -23,32 +24,111 @@ void gerarVetorInverso(int *v, int n)
         v[i] = n - i;
 }
 
+void copiarVetor(int *destino, const int *origem, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        destino[i] = origem[i];
+    }
+}
+
+void heapSortComTad(int *vetor, int n)
+{
+    Heap *heap = heap_criar(n);
+
+    for (int i = 0; i < n; i++)
+    {
+        heap_inserir(heap, vetor[i]);
+    }
+
+    for (int i = n - 1; i >= 0; i--)
+    {
+        vetor[i] = heap_remover(heap);
+    }
+
+    heap_destruir(heap);
+}
+
+double calcularTempo(struct timespec inicio, struct timespec fim)
+{
+    return (fim.tv_sec - inicio.tv_sec) +
+           (fim.tv_nsec - inicio.tv_nsec) / 1e9;
+}
+
 int main()
 {
     int N = 30000;
-    int *vetor = (int *)malloc(N * sizeof(int));
+    int *vetorOriginal = (int *)malloc(N * sizeof(int));
+    int *vetorInsertion = (int *)malloc(N * sizeof(int));
+    int *vetorSelection = (int *)malloc(N * sizeof(int));
+    int *vetorBubble = (int *)malloc(N * sizeof(int));
+    int *vetorHeap = (int *)malloc(N * sizeof(int));
 
-    if (vetor == NULL)
+    if (vetorOriginal == NULL || vetorInsertion == NULL || vetorSelection == NULL ||
+        vetorBubble == NULL || vetorHeap == NULL)
+    {
+        free(vetorOriginal);
+        free(vetorInsertion);
+        free(vetorSelection);
+        free(vetorBubble);
+        free(vetorHeap);
         return 1;
+    }
 
     srand(42);
 
-    gerarVetorAleatorio(vetor, N);
+    gerarVetorAleatorio(vetorOriginal, N);
+    copiarVetor(vetorInsertion, vetorOriginal, N);
+    copiarVetor(vetorSelection, vetorOriginal, N);
+    copiarVetor(vetorBubble, vetorOriginal, N);
+    copiarVetor(vetorHeap, vetorOriginal, N);
 
     struct timespec inicio, fim;
-    Metricas m;
+    Metricas metricasInsertion;
+    Metricas metricasSelection;
+    Metricas metricasBubble;
+    Metricas metricasHeap;
 
     clock_gettime(CLOCK_MONOTONIC, &inicio);
-    bubbleSortMelhorado(vetor, N, &m);
+    insertionSort(vetorInsertion, N, &metricasInsertion);
     clock_gettime(CLOCK_MONOTONIC, &fim);
+    metricasInsertion.tempo_segundos = calcularTempo(inicio, fim);
 
-    m.tempo_segundos = (fim.tv_sec - inicio.tv_sec) +
-                       (fim.tv_nsec - inicio.tv_nsec) / 1e9;
+    clock_gettime(CLOCK_MONOTONIC, &inicio);
+    selectionSort(vetorSelection, N, &metricasSelection);
+    clock_gettime(CLOCK_MONOTONIC, &fim);
+    metricasSelection.tempo_segundos = calcularTempo(inicio, fim);
+
+    clock_gettime(CLOCK_MONOTONIC, &inicio);
+    bubbleSortMelhorado(vetorBubble, N, &metricasBubble);
+    clock_gettime(CLOCK_MONOTONIC, &fim);
+    metricasBubble.tempo_segundos = calcularTempo(inicio, fim);
+
+    zerarMetricas(&metricasHeap);
+    clock_gettime(CLOCK_MONOTONIC, &inicio);
+    heapSortComTad(vetorHeap, N);
+    clock_gettime(CLOCK_MONOTONIC, &fim);
+    metricasHeap.tempo_segundos = calcularTempo(inicio, fim);
+
+    printf("Insertion Sort\n");
+    printf("Resultados:\nTempo: %f s\nComparacoes: %llu\nTrocas: %llu\n\n",
+           metricasInsertion.tempo_segundos, metricasInsertion.comparacoes, metricasInsertion.trocas);
+
+    printf("Selection Sort\n");
+    printf("Resultados:\nTempo: %f s\nComparacoes: %llu\nTrocas: %llu\n\n",
+           metricasSelection.tempo_segundos, metricasSelection.comparacoes, metricasSelection.trocas);
 
     printf("Bubble Sort Melhorado\n");
-    printf("Resultados:\nTempo: %f s\nComparacoes: %llu\nTrocas: %llu\n",
-           m.tempo_segundos, m.comparacoes, m.trocas);
+    printf("Resultados:\nTempo: %f s\nComparacoes: %llu\nTrocas: %llu\n\n",
+           metricasBubble.tempo_segundos, metricasBubble.comparacoes, metricasBubble.trocas);
 
-    free(vetor);
+    printf("Heap Sort com TAD\n");
+    printf("Resultados:\nTempo: %f s\n", metricasHeap.tempo_segundos);
+
+    free(vetorOriginal);
+    free(vetorInsertion);
+    free(vetorSelection);
+    free(vetorBubble);
+    free(vetorHeap);
     return 0;
 }

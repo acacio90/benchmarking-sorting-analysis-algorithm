@@ -14,7 +14,8 @@ Até o momento, foram implementados os seguintes algoritmos:
 
 * Insertion Sort;
 * Selection Sort;
-* Bubble Sort Melhorado.
+* Bubble Sort Melhorado;
+* Heap Sort.
 
 ## Estrutura do projeto
 
@@ -22,6 +23,8 @@ Até o momento, foram implementados os seguintes algoritmos:
 benchmarking-sorting-analysis-algorithm/
 ├── src/
 │   ├── main.c
+│   ├── heap.c
+│   ├── heap.h
 │   ├── ordenacao.c
 │   └── ordenacao.h
 ├── data/
@@ -32,6 +35,8 @@ benchmarking-sorting-analysis-algorithm/
 ## Descrição dos arquivos
 
 * `src/main.c`: arquivo principal do programa, responsável pela criação dos vetores, chamada dos algoritmos e exibição dos resultados.
+* `src/heap.c`: contém a implementação do TAD de heap.
+* `src/heap.h`: contém a estrutura do TAD de heap e as declarações das funções relacionadas.
 * `src/ordenacao.c`: contém a implementação dos algoritmos de ordenação.
 * `src/ordenacao.h`: contém a estrutura de métricas e as declarações das funções de ordenação.
 * `data/`: pasta reservada para armazenar os resultados brutos dos experimentos em formato `.csv` ou `.txt`.
@@ -41,7 +46,7 @@ benchmarking-sorting-analysis-algorithm/
 Para compilar o projeto, execute o comando abaixo na raiz do repositório:
 
 ```bash
-gcc src/main.c src/ordenacao.c -o programa
+gcc src/main.c src/ordenacao.c src/heap.c -o programa
 ```
 
 ## Como executar
@@ -84,7 +89,8 @@ O projeto está em fase de implementação dos algoritmos exigidos no trabalho. 
 * Separação dos algoritmos em arquivo próprio;
 * Insertion Sort instrumentado;
 * Selection Sort instrumentado;
-* Bubble Sort Melhorado instrumentado.
+* Bubble Sort Melhorado instrumentado;
+* Heap Sort implementado usando o TAD de heap.
 
 Próximas etapas:
 
@@ -96,5 +102,4 @@ Próximas etapas:
 * Gerar arquivo com os dados brutos dos testes;
 * Implementar Shellsort;
 * Implementar Quicksort clássico;
-* Implementar Heapsort;
 * Criar o relatório final com tabelas, gráficos e análise dos resultados.
