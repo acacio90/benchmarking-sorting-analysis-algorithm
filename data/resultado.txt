@@ -1,0 +1,35 @@
+Insertion Sort
+Resultados:
+Tempo: 0.308036 s
+Comparacoes: 225697282
+Trocas: 225667291
+
+Selection Sort
+Resultados:
+Tempo: 0.371654 s
+Comparacoes: 449985000
+Trocas: 29992
+
+Bubble Sort Melhorado
+Resultados:
+Tempo: 1.239480 s
+Comparacoes: 449897368
+Trocas: 225667291
+
+Shell Sort
+Resultados:
+Tempo: 0.003754 s
+Comparacoes: 926059
+Trocas: 551566
+
+Quick Sort
+Resultados:
+Tempo: 0.002045 s
+Comparacoes: 553969
+Trocas: 247726
+
+Heap Sort
+Resultados:
+Tempo: 0.003504 s
+Comparacoes: 800794
+Trocas: 420002
