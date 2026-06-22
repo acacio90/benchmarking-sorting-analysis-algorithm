@@ -224,7 +224,6 @@ O projeto já possui:
 
 ## Próximas etapas
 
-* Conferir os dados finais gerados nos arquivos `.csv` e `.txt`;
 * Inserir as tabelas e o gráfico no relatório;
 * Escrever a análise dos Problemas 1, 2 e 3;
 * Finalizar o relatório em PDF.
