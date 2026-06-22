@@ -2,7 +2,7 @@ Problema: 2
 Cenario: Ordenado Execucao 1
 Heap Sort
 Resultados:
-Tempo: 0.000656 s
+Tempo: 0.000834 s
 Comparacoes: 112126
 Trocas: 60932
 
@@ -10,7 +10,7 @@ Problema: 2
 Cenario: Ordenado Execucao 1
 Quick Sort
 Resultados:
-Tempo: 0.030661 s
+Tempo: 0.118352 s
 Comparacoes: 12497500
 Trocas: 0
 
@@ -18,7 +18,7 @@ Problema: 2
 Cenario: Ordenado Execucao 2
 Heap Sort
 Resultados:
-Tempo: 0.000641 s
+Tempo: 0.001153 s
 Comparacoes: 112126
 Trocas: 60932
 
@@ -26,7 +26,7 @@ Problema: 2
 Cenario: Ordenado Execucao 2
 Quick Sort
 Resultados:
-Tempo: 0.035170 s
+Tempo: 0.072808 s
 Comparacoes: 12497500
 Trocas: 0
 
@@ -34,7 +34,7 @@ Problema: 2
 Cenario: Ordenado Execucao 3
 Heap Sort
 Resultados:
-Tempo: 0.000710 s
+Tempo: 0.003832 s
 Comparacoes: 112126
 Trocas: 60932
 
@@ -42,7 +42,7 @@ Problema: 2
 Cenario: Ordenado Execucao 3
 Quick Sort
 Resultados:
-Tempo: 0.036937 s
+Tempo: 0.094355 s
 Comparacoes: 12497500
 Trocas: 0
 
@@ -50,7 +50,7 @@ Problema: 2
 Cenario: Ordenado Execucao 4
 Heap Sort
 Resultados:
-Tempo: 0.000770 s
+Tempo: 0.002456 s
 Comparacoes: 112126
 Trocas: 60932
 
@@ -58,7 +58,7 @@ Problema: 2
 Cenario: Ordenado Execucao 4
 Quick Sort
 Resultados:
-Tempo: 0.032042 s
+Tempo: 0.060705 s
 Comparacoes: 12497500
 Trocas: 0
 
@@ -66,7 +66,7 @@ Problema: 2
 Cenario: Ordenado Execucao 5
 Heap Sort
 Resultados:
-Tempo: 0.000852 s
+Tempo: 0.001268 s
 Comparacoes: 112126
 Trocas: 60932
 
@@ -74,7 +74,7 @@ Problema: 2
 Cenario: Ordenado Execucao 5
 Quick Sort
 Resultados:
-Tempo: 0.034231 s
+Tempo: 0.041935 s
 Comparacoes: 12497500
 Trocas: 0
 
@@ -82,7 +82,7 @@ Problema: 2
 Cenario: Ordenado Execucao 6
 Heap Sort
 Resultados:
-Tempo: 0.001033 s
+Tempo: 0.000896 s
 Comparacoes: 112126
 Trocas: 60932
 
@@ -90,7 +90,7 @@ Problema: 2
 Cenario: Ordenado Execucao 6
 Quick Sort
 Resultados:
-Tempo: 0.034774 s
+Tempo: 0.044873 s
 Comparacoes: 12497500
 Trocas: 0
 
@@ -98,7 +98,7 @@ Problema: 2
 Cenario: Ordenado Execucao 7
 Heap Sort
 Resultados:
-Tempo: 0.000669 s
+Tempo: 0.001165 s
 Comparacoes: 112126
 Trocas: 60932
 
@@ -106,7 +106,7 @@ Problema: 2
 Cenario: Ordenado Execucao 7
 Quick Sort
 Resultados:
-Tempo: 0.035917 s
+Tempo: 0.053631 s
 Comparacoes: 12497500
 Trocas: 0
 
@@ -114,7 +114,7 @@ Problema: 2
 Cenario: Ordenado Execucao 8
 Heap Sort
 Resultados:
-Tempo: 0.000794 s
+Tempo: 0.001254 s
 Comparacoes: 112126
 Trocas: 60932
 
@@ -122,7 +122,7 @@ Problema: 2
 Cenario: Ordenado Execucao 8
 Quick Sort
 Resultados:
-Tempo: 0.031872 s
+Tempo: 0.050076 s
 Comparacoes: 12497500
 Trocas: 0
 
@@ -130,7 +130,7 @@ Problema: 2
 Cenario: Ordenado Execucao 9
 Heap Sort
 Resultados:
-Tempo: 0.000677 s
+Tempo: 0.001222 s
 Comparacoes: 112126
 Trocas: 60932
 
@@ -138,7 +138,7 @@ Problema: 2
 Cenario: Ordenado Execucao 9
 Quick Sort
 Resultados:
-Tempo: 0.030484 s
+Tempo: 0.063367 s
 Comparacoes: 12497500
 Trocas: 0
 
@@ -146,7 +146,7 @@ Problema: 2
 Cenario: Ordenado Execucao 10
 Heap Sort
 Resultados:
-Tempo: 0.000836 s
+Tempo: 0.001446 s
 Comparacoes: 112126
 Trocas: 60932
 
@@ -154,7 +154,7 @@ Problema: 2
 Cenario: Ordenado Execucao 10
 Quick Sort
 Resultados:
-Tempo: 0.030551 s
+Tempo: 0.062340 s
 Comparacoes: 12497500
 Trocas: 0
 
@@ -162,13 +162,13 @@ Problema: 2
 Cenario: Ordenado
 Heap Sort
 Resumo de 10 execucoes:
-Tempo medio de execucao: 0.000764 s
-Desvio padrao: 0.000121 s
+Tempo medio de execucao: 0.001553 s
+Desvio padrao: 0.000917 s
 
 Problema: 2
 Cenario: Ordenado
 Quick Sort
 Resumo de 10 execucoes:
-Tempo medio de execucao: 0.033264 s
-Desvio padrao: 0.002419 s
+Tempo medio de execucao: 0.066244 s
+Desvio padrao: 0.023737 s
 
