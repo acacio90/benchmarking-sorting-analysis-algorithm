@@ -37,6 +37,7 @@ benchmarking-sorting-analysis-algorithm/
 │   └── grafico_problema2.png
 ├── scripts/
 │   └── grafico_problema2.py
+├── .gitignore
 ├── README.md
 └── Trabalho Prático_ Benchmarking e Análise Empírica de Algoritmos de Ordenação.pdf
 ```
@@ -54,6 +55,8 @@ benchmarking-sorting-analysis-algorithm/
 * `data/resultado_problema3.txt`: resultados textuais do Problema 3.
 * `data/grafico_problema2.png`: gráfico de barras do Problema 2.
 * `scripts/grafico_problema2.py`: script em Python utilizado para gerar o gráfico do Problema 2 a partir do arquivo `data/problema2.csv`.
+* `.gitignore`: arquivo utilizado para ignorar executáveis e arquivos temporários.
+* `Trabalho Prático_ Benchmarking e Análise Empírica de Algoritmos de Ordenação.pdf`: enunciado original do trabalho prático.
 
 ## Como compilar
 
@@ -131,7 +134,7 @@ Os arquivos `.csv` seguem o formato separado por ponto e vírgula:
 
 ```csv
 Problema;Cenario;Algoritmo;N;Tempo_s;Comparacoes;Trocas
-1;Aleatorio;Insertion Sort;30000;0.308036;225697282;225667291
+1;Aleatorio;Insertion Sort;30000;0.929437;225551463;225521470
 ```
 
 ## Exemplo dos arquivos TXT
@@ -139,10 +142,10 @@ Problema;Cenario;Algoritmo;N;Tempo_s;Comparacoes;Trocas
 ```txt
 Problema: 1
 Cenario: Aleatorio
-Bubble Sort Melhorado
+Insertion Sort
 Resultados:
-Tempo: 2.793951 s
-Comparacoes: 449885077
+Tempo: 0.929437 s
+Comparacoes: 225551463
 Trocas: 225521470
 ```
 
@@ -190,6 +193,18 @@ O programa registra os tempos de cada execução e calcula o tempo médio e o de
 
 O gráfico solicitado no trabalho é gerado pelo script `scripts/grafico_problema2.py`.
 
+Resumo final obtido no Problema 2:
+
+```txt
+Heap Sort
+Tempo médio de execução: 0.001553 s
+Desvio padrão: 0.000917 s
+
+Quick Sort
+Tempo médio de execução: 0.066244 s
+Desvio padrão: 0.023737 s
+```
+
 ### Problema 3
 
 Executa os algoritmos:
@@ -209,21 +224,18 @@ N = 50000
 
 O vetor quase ordenado é criado a partir de um vetor ordenado, realizando trocas entre elementos vizinhos em aproximadamente 0,5% das posições.
 
-## Situação atual do desenvolvimento
+## Situação atual do projeto
 
 O projeto já possui:
 
-* Estrutura de métricas;
+* Estrutura de métricas implementada;
 * Separação dos algoritmos em arquivo próprio;
 * Implementação dos seis algoritmos exigidos;
 * Execução automatizada dos três problemas;
 * Geração dos arquivos CSV;
 * Geração dos arquivos TXT;
 * Script Python para gerar o gráfico do Problema 2;
-* Gráfico do Problema 2 salvo em `data/grafico_problema2.png`.
+* Gráfico do Problema 2 salvo em `data/grafico_problema2.png`;
+* Dados finais utilizados na elaboração do relatório.
 
-## Próximas etapas
-
-* Inserir as tabelas e o gráfico no relatório;
-* Escrever a análise dos Problemas 1, 2 e 3;
-* Finalizar o relatório em PDF.
+O relatório de execução final foi elaborado separadamente com base nos dados gerados pelo projeto.
