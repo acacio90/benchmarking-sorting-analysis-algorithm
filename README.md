@@ -39,6 +39,7 @@ benchmarking-sorting-analysis-algorithm/
 │   └── grafico_problema2.py
 ├── .gitignore
 ├── README.md
+├── Relatório_ED.pdf
 └── Trabalho Prático_ Benchmarking e Análise Empírica de Algoritmos de Ordenação.pdf
 ```
 
@@ -56,6 +57,7 @@ benchmarking-sorting-analysis-algorithm/
 * `data/grafico_problema2.png`: gráfico de barras do Problema 2.
 * `scripts/grafico_problema2.py`: script em Python utilizado para gerar o gráfico do Problema 2 a partir do arquivo `data/problema2.csv`.
 * `.gitignore`: arquivo utilizado para ignorar executáveis e arquivos temporários.
+* `Relatório_ED.pdf`: relatório final de execução do projeto.
 * `Trabalho Prático_ Benchmarking e Análise Empírica de Algoritmos de Ordenação.pdf`: enunciado original do trabalho prático.
 
 ## Como compilar
@@ -238,4 +240,4 @@ O projeto já possui:
 * Gráfico do Problema 2 salvo em `data/grafico_problema2.png`;
 * Dados finais utilizados na elaboração do relatório.
 
-O relatório de execução final foi elaborado separadamente com base nos dados gerados pelo projeto.
+O relatório de execução final está disponível no arquivo `Relatório_ED.pdf`, elaborado com base nos dados finais gerados pelo projeto.
