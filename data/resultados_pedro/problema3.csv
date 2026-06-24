@@ -1,0 +1,3 @@
+Problema;Cenario;Algoritmo;N;Tempo_s;Comparacoes;Trocas
+3;Quase Ordenado;Insertion Sort;50000;0.000073;50249;250
+3;Quase Ordenado;Shell Sort;50000;0.001067;700256;250

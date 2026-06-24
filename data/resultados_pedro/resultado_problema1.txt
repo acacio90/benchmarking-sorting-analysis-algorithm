@@ -1,0 +1,72 @@
+Problema: 1
+Cenario: Aleatorio
+Insertion Sort
+Resultados:
+Tempo: 0.303617 s
+Comparacoes: 225697282
+Trocas: 225667291
+
+Problema: 1
+Cenario: Aleatorio
+Selection Sort
+Resultados:
+Tempo: 0.361776 s
+Comparacoes: 449985000
+Trocas: 29992
+
+Problema: 1
+Cenario: Aleatorio
+Bubble Sort Melhorado
+Resultados:
+Tempo: 1.233605 s
+Comparacoes: 449897368
+Trocas: 225667291
+
+Problema: 1
+Cenario: Ordenado
+Insertion Sort
+Resultados:
+Tempo: 0.000039 s
+Comparacoes: 29999
+Trocas: 0
+
+Problema: 1
+Cenario: Ordenado
+Selection Sort
+Resultados:
+Tempo: 0.369893 s
+Comparacoes: 449985000
+Trocas: 0
+
+Problema: 1
+Cenario: Ordenado
+Bubble Sort Melhorado
+Resultados:
+Tempo: 0.000024 s
+Comparacoes: 29999
+Trocas: 0
+
+Problema: 1
+Cenario: Inverso
+Insertion Sort
+Resultados:
+Tempo: 0.612366 s
+Comparacoes: 449985000
+Trocas: 449985000
+
+Problema: 1
+Cenario: Inverso
+Selection Sort
+Resultados:
+Tempo: 0.424648 s
+Comparacoes: 449985000
+Trocas: 15000
+
+Problema: 1
+Cenario: Inverso
+Bubble Sort Melhorado
+Resultados:
+Tempo: 1.137365 s
+Comparacoes: 449985000
+Trocas: 449985000
+

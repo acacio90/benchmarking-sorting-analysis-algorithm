@@ -1,0 +1,174 @@
+Problema: 2
+Cenario: Ordenado Execucao 1
+Heap Sort
+Resultados:
+Tempo: 0.000410 s
+Comparacoes: 112126
+Trocas: 60932
+
+Problema: 2
+Cenario: Ordenado Execucao 1
+Quick Sort
+Resultados:
+Tempo: 0.010938 s
+Comparacoes: 12497500
+Trocas: 0
+
+Problema: 2
+Cenario: Ordenado Execucao 2
+Heap Sort
+Resultados:
+Tempo: 0.000418 s
+Comparacoes: 112126
+Trocas: 60932
+
+Problema: 2
+Cenario: Ordenado Execucao 2
+Quick Sort
+Resultados:
+Tempo: 0.010283 s
+Comparacoes: 12497500
+Trocas: 0
+
+Problema: 2
+Cenario: Ordenado Execucao 3
+Heap Sort
+Resultados:
+Tempo: 0.000395 s
+Comparacoes: 112126
+Trocas: 60932
+
+Problema: 2
+Cenario: Ordenado Execucao 3
+Quick Sort
+Resultados:
+Tempo: 0.010765 s
+Comparacoes: 12497500
+Trocas: 0
+
+Problema: 2
+Cenario: Ordenado Execucao 4
+Heap Sort
+Resultados:
+Tempo: 0.000422 s
+Comparacoes: 112126
+Trocas: 60932
+
+Problema: 2
+Cenario: Ordenado Execucao 4
+Quick Sort
+Resultados:
+Tempo: 0.010461 s
+Comparacoes: 12497500
+Trocas: 0
+
+Problema: 2
+Cenario: Ordenado Execucao 5
+Heap Sort
+Resultados:
+Tempo: 0.000421 s
+Comparacoes: 112126
+Trocas: 60932
+
+Problema: 2
+Cenario: Ordenado Execucao 5
+Quick Sort
+Resultados:
+Tempo: 0.010329 s
+Comparacoes: 12497500
+Trocas: 0
+
+Problema: 2
+Cenario: Ordenado Execucao 6
+Heap Sort
+Resultados:
+Tempo: 0.000444 s
+Comparacoes: 112126
+Trocas: 60932
+
+Problema: 2
+Cenario: Ordenado Execucao 6
+Quick Sort
+Resultados:
+Tempo: 0.010254 s
+Comparacoes: 12497500
+Trocas: 0
+
+Problema: 2
+Cenario: Ordenado Execucao 7
+Heap Sort
+Resultados:
+Tempo: 0.000455 s
+Comparacoes: 112126
+Trocas: 60932
+
+Problema: 2
+Cenario: Ordenado Execucao 7
+Quick Sort
+Resultados:
+Tempo: 0.010516 s
+Comparacoes: 12497500
+Trocas: 0
+
+Problema: 2
+Cenario: Ordenado Execucao 8
+Heap Sort
+Resultados:
+Tempo: 0.000415 s
+Comparacoes: 112126
+Trocas: 60932
+
+Problema: 2
+Cenario: Ordenado Execucao 8
+Quick Sort
+Resultados:
+Tempo: 0.010264 s
+Comparacoes: 12497500
+Trocas: 0
+
+Problema: 2
+Cenario: Ordenado Execucao 9
+Heap Sort
+Resultados:
+Tempo: 0.000334 s
+Comparacoes: 112126
+Trocas: 60932
+
+Problema: 2
+Cenario: Ordenado Execucao 9
+Quick Sort
+Resultados:
+Tempo: 0.010261 s
+Comparacoes: 12497500
+Trocas: 0
+
+Problema: 2
+Cenario: Ordenado Execucao 10
+Heap Sort
+Resultados:
+Tempo: 0.000419 s
+Comparacoes: 112126
+Trocas: 60932
+
+Problema: 2
+Cenario: Ordenado Execucao 10
+Quick Sort
+Resultados:
+Tempo: 0.010487 s
+Comparacoes: 12497500
+Trocas: 0
+
+Problema: 2
+Cenario: Ordenado
+Heap Sort
+Resumo de 10 execucoes:
+Tempo medio de execucao: 0.000413 s
+Desvio padrao: 0.000033 s
+
+Problema: 2
+Cenario: Ordenado
+Quick Sort
+Resumo de 10 execucoes:
+Tempo medio de execucao: 0.010456 s
+Desvio padrao: 0.000234 s
+

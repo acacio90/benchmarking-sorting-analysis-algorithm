@@ -1,0 +1,10 @@
+Problema;Cenario;Algoritmo;N;Tempo_s;Comparacoes;Trocas
+1;Aleatorio;Insertion Sort;30000;0.303617;225697282;225667291
+1;Aleatorio;Selection Sort;30000;0.361776;449985000;29992
+1;Aleatorio;Bubble Sort Melhorado;30000;1.233605;449897368;225667291
+1;Ordenado;Insertion Sort;30000;0.000039;29999;0
+1;Ordenado;Selection Sort;30000;0.369893;449985000;0
+1;Ordenado;Bubble Sort Melhorado;30000;0.000024;29999;0
+1;Inverso;Insertion Sort;30000;0.612366;449985000;449985000
+1;Inverso;Selection Sort;30000;0.424648;449985000;15000
+1;Inverso;Bubble Sort Melhorado;30000;1.137365;449985000;449985000
