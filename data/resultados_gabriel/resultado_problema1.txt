@@ -2,7 +2,7 @@ Problema: 1
 Cenario: Aleatorio
 Insertion Sort
 Resultados:
-Tempo: 0.929437 s
+Tempo: 0.946313 s
 Comparacoes: 225551463
 Trocas: 225521470
 
@@ -10,7 +10,7 @@ Problema: 1
 Cenario: Aleatorio
 Selection Sort
 Resultados:
-Tempo: 1.542951 s
+Tempo: 1.398811 s
 Comparacoes: 449985000
 Trocas: 29982
 
@@ -18,7 +18,7 @@ Problema: 1
 Cenario: Aleatorio
 Bubble Sort Melhorado
 Resultados:
-Tempo: 3.850801 s
+Tempo: 2.851554 s
 Comparacoes: 449885077
 Trocas: 225521470
 
@@ -26,7 +26,7 @@ Problema: 1
 Cenario: Ordenado
 Insertion Sort
 Resultados:
-Tempo: 0.000095 s
+Tempo: 0.000096 s
 Comparacoes: 29999
 Trocas: 0
 
@@ -34,7 +34,7 @@ Problema: 1
 Cenario: Ordenado
 Selection Sort
 Resultados:
-Tempo: 1.316868 s
+Tempo: 1.441818 s
 Comparacoes: 449985000
 Trocas: 0
 
@@ -42,7 +42,7 @@ Problema: 1
 Cenario: Ordenado
 Bubble Sort Melhorado
 Resultados:
-Tempo: 0.000106 s
+Tempo: 0.000102 s
 Comparacoes: 29999
 Trocas: 0
 
@@ -50,7 +50,7 @@ Problema: 1
 Cenario: Inverso
 Insertion Sort
 Resultados:
-Tempo: 1.790499 s
+Tempo: 2.007347 s
 Comparacoes: 449985000
 Trocas: 449985000
 
@@ -58,7 +58,7 @@ Problema: 1
 Cenario: Inverso
 Selection Sort
 Resultados:
-Tempo: 1.606889 s
+Tempo: 1.249074 s
 Comparacoes: 449985000
 Trocas: 15000
 
@@ -66,7 +66,7 @@ Problema: 1
 Cenario: Inverso
 Bubble Sort Melhorado
 Resultados:
-Tempo: 3.146723 s
+Tempo: 2.735982 s
 Comparacoes: 449985000
 Trocas: 449985000
 

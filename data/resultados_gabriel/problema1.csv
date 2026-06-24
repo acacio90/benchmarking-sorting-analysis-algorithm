@@ -1,10 +1,10 @@
 Problema;Cenario;Algoritmo;N;Tempo_s;Comparacoes;Trocas
-1;Aleatorio;Insertion Sort;30000;0.929437;225551463;225521470
-1;Aleatorio;Selection Sort;30000;1.542951;449985000;29982
-1;Aleatorio;Bubble Sort Melhorado;30000;3.850801;449885077;225521470
-1;Ordenado;Insertion Sort;30000;0.000095;29999;0
-1;Ordenado;Selection Sort;30000;1.316868;449985000;0
-1;Ordenado;Bubble Sort Melhorado;30000;0.000106;29999;0
-1;Inverso;Insertion Sort;30000;1.790499;449985000;449985000
-1;Inverso;Selection Sort;30000;1.606889;449985000;15000
-1;Inverso;Bubble Sort Melhorado;30000;3.146723;449985000;449985000
+1;Aleatorio;Insertion Sort;30000;0.946313;225551463;225521470
+1;Aleatorio;Selection Sort;30000;1.398811;449985000;29982
+1;Aleatorio;Bubble Sort Melhorado;30000;2.851554;449885077;225521470
+1;Ordenado;Insertion Sort;30000;0.000096;29999;0
+1;Ordenado;Selection Sort;30000;1.441818;449985000;0
+1;Ordenado;Bubble Sort Melhorado;30000;0.000102;29999;0
+1;Inverso;Insertion Sort;30000;2.007347;449985000;449985000
+1;Inverso;Selection Sort;30000;1.249074;449985000;15000
+1;Inverso;Bubble Sort Melhorado;30000;2.735982;449985000;449985000
