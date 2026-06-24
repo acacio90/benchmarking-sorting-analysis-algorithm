@@ -28,13 +28,22 @@ benchmarking-sorting-analysis-algorithm/
 │   ├── ordenacao.c
 │   └── ordenacao.h
 ├── data/
-│   ├── problema1.csv
-│   ├── problema2.csv
-│   ├── problema3.csv
-│   ├── resultado_problema1.txt
-│   ├── resultado_problema2.txt
-│   ├── resultado_problema3.txt
-│   └── grafico_problema2.png
+│   ├── resultados_gabriel/
+│   │   ├── problema1.csv
+│   │   ├── problema2.csv
+│   │   ├── problema3.csv
+│   │   ├── resultado_problema1.txt
+│   │   ├── resultado_problema2.txt
+│   │   ├── resultado_problema3.txt
+│   │   └── grafico_problema2.png
+│   └── resultados_pedro/
+│       ├── problema1.csv
+│       ├── problema2.csv
+│       ├── problema3.csv
+│       ├── resultado_problema1.txt
+│       ├── resultado_problema2.txt
+│       ├── resultado_problema3.txt
+│       └── grafico_problema2.png
 ├── scripts/
 │   └── grafico_problema2.py
 ├── .gitignore
@@ -48,14 +57,10 @@ benchmarking-sorting-analysis-algorithm/
 * `src/main.c`: arquivo principal do programa, responsável por gerar os vetores, executar os Problemas 1, 2 e 3 e gravar os resultados.
 * `src/ordenacao.c`: contém a implementação dos algoritmos de ordenação.
 * `src/ordenacao.h`: contém a estrutura `Metricas` e as declarações das funções de ordenação.
-* `data/problema1.csv`: dados brutos do Problema 1.
-* `data/problema2.csv`: dados brutos do Problema 2.
-* `data/problema3.csv`: dados brutos do Problema 3.
-* `data/resultado_problema1.txt`: resultados textuais do Problema 1.
-* `data/resultado_problema2.txt`: resultados textuais do Problema 2, incluindo média e desvio padrão.
-* `data/resultado_problema3.txt`: resultados textuais do Problema 3.
-* `data/grafico_problema2.png`: gráfico de barras do Problema 2.
-* `scripts/grafico_problema2.py`: script em Python utilizado para gerar o gráfico do Problema 2 a partir do arquivo `data/problema2.csv`.
+* `data/resultados_gabriel/`: resultados gerados no ambiente de Gabriel Pereira do Carmo (Windows/WSL, Intel Core i3-1005G1).
+* `data/resultados_pedro/`: resultados gerados no ambiente de Pedro Acácio Rodrigues (WSL/Ubuntu, Intel Core i7-14700).
+* Cada subpasta contém: `problema1.csv`, `problema2.csv`, `problema3.csv`, arquivos `.txt` com os resultados por problema e `grafico_problema2.png`.
+* `scripts/grafico_problema2.py`: script em Python que lê o arquivo `problema2.csv` de uma das subpastas e gera o gráfico de barras.
 * `.gitignore`: arquivo utilizado para ignorar executáveis e arquivos temporários.
 * `Relatório_ED.pdf`: relatório final de execução do projeto.
 * `Trabalho Prático_ Benchmarking e Análise Empírica de Algoritmos de Ordenação.pdf`: enunciado original do trabalho prático.
@@ -95,40 +100,32 @@ ulimit -s unlimited
 
 ## Como gerar o gráfico do Problema 2
 
-Primeiro, execute o programa em C para gerar o arquivo `data/problema2.csv`.
+O script lê por padrão o arquivo `data/problema2.csv`. Aponte-o para a subpasta desejada antes de executar (`resultados_gabriel` ou `resultados_pedro`), ajustando a variável `ARQUIVO_ENTRADA` em `scripts/grafico_problema2.py`.
 
-Depois, instale a dependência do Python, se necessário:
-
-```bash
-python -m pip install matplotlib
-```
-
-Em seguida, execute o script:
+Instale a dependência do Python, se necessário:
 
 ```bash
-python scripts/grafico_problema2.py
+pip install matplotlib
+# ou, em sistemas gerenciados (Debian/Ubuntu):
+sudo apt install python3-matplotlib
 ```
 
-O gráfico será salvo em:
+Em seguida, execute o script a partir da raiz do repositório:
 
-```txt
-data/grafico_problema2.png
+```bash
+python3 scripts/grafico_problema2.py
 ```
+
+O gráfico será salvo na pasta `data/` configurada no script.
 
 ## Arquivos gerados
 
-O programa em C gera automaticamente:
+O programa em C gera os arquivos na raiz de `data/`. Para preservar os resultados por ambiente, mova-os manualmente para a subpasta correspondente (`resultados_gabriel/` ou `resultados_pedro/`) após cada execução:
 
-* `data/problema1.csv`;
-* `data/problema2.csv`;
-* `data/problema3.csv`;
-* `data/resultado_problema1.txt`;
-* `data/resultado_problema2.txt`;
-* `data/resultado_problema3.txt`.
+* `problema1.csv`, `problema2.csv`, `problema3.csv`;
+* `resultado_problema1.txt`, `resultado_problema2.txt`, `resultado_problema3.txt`.
 
-O script Python gera:
-
-* `data/grafico_problema2.png`.
+O script Python gera `grafico_problema2.png` na pasta configurada em `ARQUIVO_SAIDA`.
 
 ## Formato dos arquivos CSV
 
@@ -195,16 +192,16 @@ O programa registra os tempos de cada execução e calcula o tempo médio e o de
 
 O gráfico solicitado no trabalho é gerado pelo script `scripts/grafico_problema2.py`.
 
-Resumo final obtido no Problema 2:
+Resumo final obtido no Problema 2 (Pedro — WSL/Ubuntu):
 
 ```txt
 Heap Sort
-Tempo médio de execução: 0.001553 s
-Desvio padrão: 0.000917 s
+Tempo médio de execução: 0.000413 s
+Desvio padrão: 0.000033 s
 
 Quick Sort
-Tempo médio de execução: 0.066244 s
-Desvio padrão: 0.023737 s
+Tempo médio de execução: 0.010456 s
+Desvio padrão: 0.000234 s
 ```
 
 ### Problema 3
